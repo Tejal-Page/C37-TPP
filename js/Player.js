@@ -1,6 +1,6 @@
 class Player {
   constructor(){
-    this.index = null;
+    this.index = null; //when all players login one by one, to point these players in the game we use index property
     this.distance = 0;
     this.name = null;
   }
@@ -23,7 +23,7 @@ class Player {
   //UPDATE DATABSE WITH NAME AND DISTANCE.
   //WE HAVE NOT CREATED PLAYERINDEX ORIGINALLY IN OUR DATABSE..WE ARE ADDING HERE.
   update(){
-    //THIS IS A PATH- players/player/this.index...where this/index is a number1/2/3/4
+    //THIS IS A PATH- players/player/this.index...where this/index is a number1/2/3/4- given in constructor
     //this path is given to ref which creates this in our database
     var playerIndex = "players/player" + this.index;
     database.ref(playerIndex).set({
@@ -35,13 +35,15 @@ class Player {
   //this keeps all record of players together which is useful for creating leaderboard
   /* STATIC FUNCTION
   -IT'S A SELF EXECUTABLE FUNCTION
+  -this will be called for every object of the class
+  -for calling this function, we use class name not object name
   -CLASS EXECUTES IT, NOT US...
   - READING ALL INFO FROM PLAYERS SECTION- NAME, DISTANCE ETC
   */
   static getPlayerInfo(){
     var playerInfoRef = database.ref('players');
     playerInfoRef.on("value",(data)=>{
-      allPlayers = data.val();
+      allPlayers = data.val(); //in skecth we have created this var, where we store everything about all players...its an array.
     })
   }
 }
