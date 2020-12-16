@@ -31,6 +31,11 @@ class Game {
   async start(){
     if(gameState === 0){
       player = new Player();
+      /*IDEALLY YOU JUST HAVE TO GET THE PLAYER COUNT..BUT SOMETIMES, YOUR PLAYERCOUNT MAY NOT GET UPDATED QUICKLY
+      - IT MAY TAKE TIME, SO WE READ THE PLAYERCOUNT AGAIN FROM DATABASE ONLY ONCE.- WAIT TILL THIS VALUE IS RECIEVED.
+      - AFTER IT IS RECIEVED, IF IT EXSISTS THEN GET THE COUNT, UPDATE OUR PROGRAM AND THEN UPDATE THE DATABASE
+      - SINCE WE HAVE TO WAIT, YOU HAVE TO MAKE IT ASYNC..OTHERWISE IT DOESNT WORK.
+      */
       var playerCountRef = await database.ref('playerCount').once("value");
       if(playerCountRef.exists()){
         playerCount = playerCountRef.val();
@@ -77,10 +82,10 @@ class Game {
         //refers to which player
       }
     }
-
+//UPDATING THE DISTANCE IF YOU PRESS UP ARROW
     if(keyIsDown(UP_ARROW) && player.index !== null){
-      player.distance +=50
-      player.update();
+      player.distance +=50 //INCREASE DISTANCE IF UP IS PRESSED
+      player.update(); //UPDATE THE DISTANCE VALUE IN PLAYER CLASS
     }
   }
 }
