@@ -25,7 +25,7 @@ class Player {
   update(){
     //THIS IS A PATH- players/player/this.index...where this/index is a number1/2/3/4- given in constructor
     //this path is given to ref which creates this in our database
-    var playerIndex = "players/player" + this.index;
+    var playerIndex = "players/player" + this.index; //updated in form class where, we say, index= playercount
     database.ref(playerIndex).set({
       name:this.name,
       distance:this.distance
